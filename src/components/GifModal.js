@@ -8,7 +8,8 @@ const GifModal = (props) => {
 
   return (
     <Modal isOpen={ props.modalIsOpen }
-      onRequestClose={ () => props.onRequestClose() }>
+      onRequestClose={ () => props.onRequestClose() }
+    contentLabel="Modal">
       <div className="gif-modal">
         <img src={ props.selectedGif.images.original.url }
           alt={ props.selectedGif.images.original.url }/>
