@@ -1,8 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import * as Actions from '../actions';
 
 class Header extends React.Component {
+  handleSignout() {
+    this.props.signOutUser();
+  }
+
+  renderAuthLinks() {
+    if (this.props.authenticated) {
+      return [
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/favorites">My Favorites</Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <a href="#" className="nav-link" onClick={() => this.handleSignout()}>Sign Out</a>
+        </li>
+      ]
+    } else {
+      return [
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/login">Login</Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <Link className="nav-link" to="/signup">Sign Up</Link>
+        </li>
+      ]
+    }
+  }
+
   render() {
     return (
       <nav className="navbar navbar-default">
@@ -11,12 +38,7 @@ class Header extends React.Component {
             <Link to="/" className="navbar-brand">React2Gifs</Link>
           </div>
           <ul className="nav navbar-nav navbar-right">
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/signup" className="nav-link">Sign Up</Link>
-            </li>
+            { this.renderAuthLinks() }
           </ul>
         </div>
       </nav>
@@ -25,7 +47,9 @@ class Header extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    authenticated: state.auth.authenticated
+  };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, Actions)(Header);

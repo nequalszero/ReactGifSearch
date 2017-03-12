@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import * as Actions from '../actions';
 
 const validate = values => {
   const errors = {};
@@ -20,7 +22,7 @@ const validate = values => {
 // styled with bootstrap classes
 class Login extends React.Component {
   handleFormSubmit = (values) => {
-    console.log(values);
+    this.props.signInUser(values);
   };
 
   renderField = ({ input, label, type, meta: { touched, error } }) => (
@@ -63,8 +65,13 @@ class Login extends React.Component {
 }
 
 // reduxForm is a decorator that connects the form to Redux.  It takes a config
-//   object with only one required argument, a unique name for the form
-export default reduxForm({
+//   object with only one required argument, a unique name for the form.
+// bindActionsCreators not needed like in Home container component to add 
+//   actions to props; bindActionsCreators only needed when passing action
+//   creators down as props from a container to a component that's not aware
+//   of Redux.  Login has no child components, so can just pass action creators
+//   into reduxForm() directly.
+export default connect(null, Actions)(reduxForm({
   form: 'login',
   validate
-})(Login);
+})(Login));
