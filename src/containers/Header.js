@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 class Header extends React.Component {
   render() {
@@ -7,14 +8,14 @@ class Header extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a href="/" className="navbar-brand">React2Gifs</a>
+            <Link to="/" className="navbar-brand">React2Gifs</Link>
           </div>
           <ul className="nav navbar-nav navbar-right">
             <li className="nav-item">
-              <a href="/login" className="nav-link">Login</a>
+              <Link to="/login" className="nav-link">Login</Link>
             </li>
             <li className="nav-item">
-              <a href="/signup" className="nav-link">Sign Up</a>
+              <Link to="/signup" className="nav-link">Sign Up</Link>
             </li>
           </ul>
         </div>
