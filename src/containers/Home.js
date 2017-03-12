@@ -7,7 +7,7 @@ import GifModal from '../components/GifModal';
 import SearchBar from '../components/SearchBar';
 import '../styles/app.css';
 
-class App extends React.Component {
+class Home extends React.Component {
   render() {
     return(
       <div>
@@ -43,5 +43,5 @@ function mapDispatchToProps(dispatch) {
 // Connect used to link React and Redux, allowing Redux state to be pulled into
 //   React as props.  There are two different function calls going on:
 //   1. connect(mapStateToProps) is called, and returns another function.
-//   2. The second function is then called with App passed in as an argument.
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+//   2. The second function is then called with Home passed in as an argument.
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
