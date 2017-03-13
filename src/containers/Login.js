@@ -35,6 +35,13 @@ class Login extends React.Component {
     </fieldset>
   );
 
+  renderAuthenticationError() {
+    if (this.props.authenticationError) {
+      return <div className="alert alert-danger">{ this.props.authenticationError }</div>;
+    }
+    return <div></div>;
+  }
+
   // handleSubmit() is a redux-form method, made available via this.props by
   //   reduxForm()(), that can be attached to the form's onSubmit event handler.
   // This lets redux-form know that hte user is trying to submit the form so it
@@ -44,6 +51,9 @@ class Login extends React.Component {
       <div className="container">
         <div className="col-md-6 col-md-offset-3">
           <h2 className="text-center">Log In</h2>
+
+          { this.renderAuthenticationError() }
+
           <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
             <Field className="form-control"
               name="email"
@@ -64,14 +74,20 @@ class Login extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    authenticationError: state.auth.error
+  };
+}
+
 // reduxForm is a decorator that connects the form to Redux.  It takes a config
 //   object with only one required argument, a unique name for the form.
-// bindActionsCreators not needed like in Home container component to add 
+// bindActionsCreators not needed like in Home container component to add
 //   actions to props; bindActionsCreators only needed when passing action
 //   creators down as props from a container to a component that's not aware
 //   of Redux.  Login has no child components, so can just pass action creators
 //   into reduxForm() directly.
-export default connect(null, Actions)(reduxForm({
+export default connect(mapStateToProps, Actions)(reduxForm({
   form: 'login',
   validate
 })(Login));

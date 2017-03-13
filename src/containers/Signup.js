@@ -30,7 +30,7 @@ const validate = values => {
 // styled with bootstrap classes
 class Signup extends React.Component {
   handleFormSubmit = (values) => {
-    this.props.signInUser(values);
+    this.props.signUpUser(values);
   };
 
   renderField = ({ input, label, type, meta: { touched, error} }) => (
@@ -43,11 +43,21 @@ class Signup extends React.Component {
     </fieldset>
   );
 
+  renderAuthenticationError() {
+    if (this.props.authenticationError) {
+      return <div className="alert alert-danger">{ this.props.authenticationError }</div>;
+    }
+    return <div></div>;
+  }
+
   render() {
     return (
       <div className="container">
         <div className="col-md-6 col-md-offset-3">
           <h2 className="text-center">Sign Up</h2>
+
+          { this.renderAuthenticationError() }
+
           <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
             <Field name="email" type="text" component={this.renderField} label="Email"/>
             <Field name="password" type="password" component={this.renderField} label="Password"/>
@@ -61,12 +71,18 @@ class Signup extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    authenticationError: state.auth.error
+  };
+}
+
 // bindActionsCreators not needed like in Home container component to add
 //   actions to props; bindActionsCreators only needed when passing action
 //   creators down as props from a container to a component that's not aware
 //   of Redux.  Signup has no child components, so can just pass action creators
 //   into reduxForm() directly.
-export default connect(null, Actions)(reduxForm({
+export default connect(mapStateToProps, Actions)(reduxForm({
   form: 'signup',
   validate
 })(Signup));
