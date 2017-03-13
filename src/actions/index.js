@@ -5,6 +5,7 @@ import Firebase from 'firebase';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const REQUEST_GIFS = 'REQUEST_GIFS';
+export const FETCH_FAVORITED_GIFS = 'FETCH_FAVORITED_GIFS';
 export const SIGN_IN_USER = 'SIGN_IN_USER';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -46,6 +47,44 @@ export function requestGifs(term = null) {
         type: REQUEST_GIFS,
         payload: response
       });
+    });
+  }
+}
+
+// Creates a nested key of the gifId under the primary user key in Firebase.
+//   Using update ensures that data is not duplicated.
+export function favoriteGif({selectedGif}) {
+  const userUid = Firebase.auth().currentUser.uid;
+  const gifId = selectedGif.id;
+
+  return dispatch => Firebase.database().ref(userUid).update({
+    [gifId]: selectedGif
+  });
+}
+
+export function unfavoriteGif({selectedGif}) {
+  const userUid = Firebase.auth().currentUser.uid;
+  const gifId = selectedGif.id;
+  console.log("action - unfavoriteGif");
+
+  return dispatch => Firebase.database().ref(userUid).child(gifId).remove();
+}
+
+// Firebase's on method is a listener that fires when the initial data is stored
+//   at the specific location (in this case, our child path with our user ID)
+//   and again every time the data changes. It passes a snapshot of this data
+//   through the callback, and we are then dispatching the value of this
+//   snapshot to our reducer.
+export function fetchFavoritedGifs() {
+  return function(dispatch) {
+    console.log(Firebase.auth().currentUser);
+    const userUid = Firebase.auth().currentUser.uid;
+
+    Firebase.database().ref(userUid).on('value', snapshot => {
+      dispatch({
+        type: FETCH_FAVORITED_GIFS,
+        payload: snapshot.val()
+      })
     });
   }
 }
