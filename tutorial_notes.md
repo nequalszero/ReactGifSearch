@@ -1,6 +1,12 @@
 # React-101 Encountered Issues
 ## Part 3: Routing and Auth
-`react-router 4.0.0` does not seem to have `browserHistory`, downgraded to `react-router 2.8.1`.
+`react-router 4.0.0` seems to have issues with `history={browserHistory}`:
+```
+Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in. Warning: Failed prop type: The prop `history` is marked as required in `Router`, but its value is `undefined`.
+```
+By using `import createBrowserHistory from 'history/createBrowserHistory'` and `history={createBrowserHistory()}`, the error goes away but does not properly render `<IndexRoute component={Home} />`.
+
+Downgrading to `react-router 2.8.1` to match the version used in the tutorial solved the issue without the need of the `history` library.
 
 ## Part 4: Firebase
 ### src/actions/index.js
