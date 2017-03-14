@@ -56,7 +56,7 @@ export function fetchFavoritedGifs() {
 }
 ```
 
-This error is due to that Firebase has not yet established a currentUser.  I fixed this by modifying the Favorites container component, modifying the `componentWillMount` method and adding a `componentWillReceiveProps` method, so that the `fetchFavoritedGifs` action does not fire until authentication has completed.
+This error is due to that Firebase has not yet established a currentUser.  I fixed this by modifying the Favorites container component, modifying the `componentWillMount` method and adding a `componentWillReceiveProps` method, so that the `fetchFavoritedGifs` action does not fire if authentication has not completed.
 
 ```javascript
 // src/containers/Favorites.js
