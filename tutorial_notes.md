@@ -1,4 +1,4 @@
-# React-101 Encountered Issues
+# React-101 Tutorial Notes
 ## Part 3: Routing and Auth
 `react-router 4.0.0` seems to have issues with `history={browserHistory}`:
 ```
