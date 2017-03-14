@@ -1,6 +1,0 @@
-1.) react-router 4.0.0 does not seem to have browserHistory, downgraded to
-    react-router 2.8.1.
-2.) [minor detail] src/reducers/auth.js has a minor copy and paste residual, with
-    the name of the function being exported as 'gifs' instead of 'auth'.
-3.) src/actions/index.js Firebase.auth().signOut(); is missing from the signOutUser
-    function, right before the section on Favoriting gifs in part 4.

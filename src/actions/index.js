@@ -77,7 +77,6 @@ export function unfavoriteGif({selectedGif}) {
 //   snapshot to our reducer.
 export function fetchFavoritedGifs() {
   return function(dispatch) {
-    console.log(Firebase.auth().currentUser);
     const userUid = Firebase.auth().currentUser.uid;
 
     Firebase.database().ref(userUid).on('value', snapshot => {

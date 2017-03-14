@@ -8,7 +8,15 @@ import '../styles/app.css';
 
 class Favorites extends React.Component {
   componentWillMount() {
-    this.props.actions.fetchFavoritedGifs();
+    if (this.props.authenticated) {
+      this.props.actions.fetchFavoritedGifs();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.authenticated && nextProps.authenticated) {
+      this.props.actions.fetchFavoritedGifs();
+    }
   }
 
   render() {
