@@ -11,7 +11,7 @@ export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
 
-const API_URL = 'http://api.giphy.com/v1/gifs/search?q=';
+const API_URL = 'https://api.giphy.com/v1/gifs/search?q=';
 const API_KEY = '&api_key=dc6zaTOxFJmzC';
 
 const config = {
